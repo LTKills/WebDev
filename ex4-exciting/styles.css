@@ -21,34 +21,26 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     max-width: 980px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 20px;
   }
   
-  article {
-    width: 50%;
-    float: left;
-  }
-
-  aside {
-    width: 50%;
-    float: right;
-  }
-  nav {
+ nav {
     background-color: #000;
     padding: .5em;
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     overflow: hidden;
   }
   
   nav ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
     margin: 0;
     padding: 0;
     list-style: none;
+    display: flex;
+    justify-content: space-between;
   }
   
   nav a {
@@ -58,15 +50,16 @@ body {
   }
   
   .photos {
-    column-count: 2;
-    column-gap: 1px;
-    padding: 0;
     list-style: none;
     margin: 0;
+    padding: 0;
+    display: grid;
+    grid-gap: 1px;
+    grid-template-columns: 1fr 1fr;
   }
 
   .feature {
       width: 200px;
       float: left;
-      padding: 20px;
+      padding: 0 20px 20px 0;
   }
