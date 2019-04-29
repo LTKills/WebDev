@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+      get_quotation = function() {
+        // url = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='" + start_date +"'&$top=100&$format=json"
+        alert("clicked!");
+      }
+    </script>
+  </head>
+  <body>
+    <h1> Cotação do Dólar </h1>
+    <form onSubmit="get_quotation()">
+      Início:<br>
+      <input type="date" name="start_date"> <br> <br>
+      Fim:<br>
+      <input type="date" name="end_date"> <br> <br>
+      <input type="submit" value="Pesquisar">
+    </form>
+  </body>
+</html>
