@@ -14,8 +14,20 @@ format_url = function(date_start, date_end) {
     str_date_end = format_date(date_end)
 
     url = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='" + str_date_start + "'&@dataFinalCotacao='" + str_date_end + "'&$top=100&$format=json"
-    alert(url)
+    return url
 }
+
+
+
+// Return the json from a given url
+get_json = function (url) {
+    var Httpreq = new XMLHttpRequest() // a new request
+    Httpreq.open("GET", url)
+    Httpreq.send();
+    return JSON.parse(Httpreq.responseText)
+}
+
+
 
 
 
@@ -42,8 +54,11 @@ get_quotation = function() {
     }
     */
 
-    format_url(start_date, end_date)
-
+    url = format_url(start_date, end_date)
+    json_obj = get_json(url)
+    alert(json_obj)
+    // alert(JSON.stringify(json_obj))
+    alert(url)
 }
 
 
