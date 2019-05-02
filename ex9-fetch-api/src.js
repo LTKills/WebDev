@@ -20,18 +20,24 @@ format_url = function(date_start, date_end) {
 
 
 get_json = function (url) {
-    var Httpreq = new XMLHttpRequest() // a new request
-    Httpreq.open("GET", url)
-    Httpreq.send();
+    var Httpreq = new XMLHttpRequest()
+    Httpreq.responseType = 'json';
+    Httpreq.open("GET", url, true)
+    Httpreq.send()
+
+    Httpreq.onload = function() {
+        var quotations = Httpreq.response;
+        show_quotations(quotations); // TODO(ltkills): implement show_quotations
+    };
     return JSON.parse(Httpreq.responseText)
 }
 
 
 
 get_quotation = function() {
-    var one_day = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-    var start_date = document.getElementById("startDate").value
-    var end_date = document.getElementById("endDate").value
+    let one_day = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    let start_date = document.getElementById("startDate").value
+    let end_date = document.getElementById("endDate").value
     let buyOrSell = document.getElementById("buyOrSell").value
     let order = document.getElementById("order").value
 
@@ -46,7 +52,7 @@ get_quotation = function() {
 
     url = format_url(start_date, end_date)
     json_obj = get_json(url)
-    alert(JSON.stringify(json_obj))
+    alert('here')
 }
 
 
