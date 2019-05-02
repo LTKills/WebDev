@@ -12,13 +12,13 @@
       <input type="date" name="end_date" id="endDate"> <br> <br>
 
       <select name="buyOrSell" id="buyOrSell" size="2">
-	<option>Buy</option>
-	<option>Sell</option>
+        <option selected="selected" value="buy">Compra</option>
+        <option value="sell">Venda</option>
       </select> <br> <br>
 
       <select name="order" id="order" size="2">
-	<option>Descending</option>
-	<option>Ascending</option>
+        <option selected="selected" value="descending">Descendente</option>
+        <option value="ascending">Ascendente</option>
       </select> <br> <br>
 
 
@@ -26,5 +26,12 @@
 
     </form>
     <script src="src.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      let today = new Date()
+      let start_day = new Date()
+      start_day.setDate(today.getDate() - 20)
+      document.getElementById('startDate').valueAsDate = start_day;
+      document.getElementById('endDate').valueAsDate = today;
+    </script>
   </body>
 </html>
