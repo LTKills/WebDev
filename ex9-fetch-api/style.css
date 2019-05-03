@@ -1,0 +1,15 @@
+body {
+    text-align: center;
+    font-family: 'Roboto';
+    font-size: 22px;
+}
+
+.selects {
+    display: flex;
+    justify-content: center;
+}
+
+select {
+    margin: 2%;
+    width: 10%;
+}

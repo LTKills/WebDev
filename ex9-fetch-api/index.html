@@ -2,24 +2,28 @@
 <html lang="pt">
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
  </head>
-  <body>
+  <body class="center">
     <h1> Cotação do Dólar </h1>
     <form>
-      Início:<br>
+      Data de início:
       <input type="date" name="start_date" id="startDate"> <br> <br>
-      Fim:<br>
+      Data de fim:
       <input type="date" name="end_date" id="endDate"> <br> <br>
+      <h3>Opções de filtragem</h3>
+      <div class="selects">
+        <select name="buyOrSell" id="buyOrSell" size="2">
+          <option selected="selected" value="cotacaoCompra">Compra</option>
+          <option value="cotacaoVenda">Venda</option>
+        </select> <br> <br>
 
-      <select name="buyOrSell" id="buyOrSell" size="2">
-        <option selected="selected" value="cotacaoCompra">Compra</option>
-        <option value="cotacaoVenda">Venda</option>
-      </select> <br> <br>
-
-      <select name="order" id="order" size="2">
-        <option selected="selected" value="desc">Descendente</option>
-        <option value="asc">Ascendente</option>
-      </select> <br> <br>
+        <select name="order" id="order" size="2">
+          <option selected="selected" value="desc">Descendente</option>
+          <option value="asc">Ascendente</option>
+        </select> <br> <br>
+      </div>
 
 
       <input type="button" onClick="get_quotation()"value="Pesquisar">
