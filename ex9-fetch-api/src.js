@@ -3,33 +3,52 @@ format_date = function(date_obj) {
 
     // We sum 1 since the month is zero based and since UTC makes our day 1 less
     month = parseInt(date_obj.getMonth()) + 1
+    if(month < 10) month = "0" + month
+
     day = parseInt(date_obj.getDate()) + 1
+    if(day < 10) day = "0" + day
+
     year = date_obj.getFullYear()
     return month + "-" + day + "-" + year
 }
 
 
-format_url = function(date_start, date_end) {
+format_url = function(date_start, date_end, order, buyOrSell) {
     str_date_start = format_date(date_start)
     str_date_end = format_date(date_end)
 
-    url = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='" + str_date_start + "'&@dataFinalCotacao='" + str_date_end + "'&$top=100&$format=json"
+    url = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='" + str_date_start + "'&@dataFinalCotacao='" + str_date_end + "'&$top=100&$orderby=" + buyOrSell + "%20" + order + "&$format=json&$select=cotacaoCompra,cotacaoVenda,dataHoraCotacao"
     return url
 }
 
 
+show_quotations = function(quotations) {
+    for (quotation in quotations) {
+        // create table row
+        alert(quotations[0].cotacaoCompra)
+    }
+}
 
-get_json = function (url) {
-    var Httpreq = new XMLHttpRequest()
-    Httpreq.responseType = 'json';
-    Httpreq.open("GET", url, true)
-    Httpreq.send()
 
-    Httpreq.onload = function() {
-        var quotations = Httpreq.response;
-        show_quotations(quotations); // TODO(ltkills): implement show_quotations
-    };
-    return JSON.parse(Httpreq.responseText)
+update_html = function (url) {
+    // delete old table rows (if any)
+    table = document.getElementById("dataRows")
+    while(table.firstChild) {
+        removeChild(table.firstChild);
+    }
+
+    // get json file
+    var request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.responseType = 'json';
+
+    // draw new html
+    request.onload = function() {
+        var result = request.response;
+        show_quotations(result.value);
+    }
+
+    request.send();
 }
 
 
@@ -50,9 +69,8 @@ get_quotation = function() {
         return
     }
 
-    url = format_url(start_date, end_date)
-    json_obj = get_json(url)
-    alert('here')
+    url = format_url(start_date, end_date, order, buyOrSell)
+    update_html(url)
 }
 
 
