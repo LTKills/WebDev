@@ -22,10 +22,22 @@ format_url = function(date_start, date_end, order, buyOrSell) {
 }
 
 
-show_quotations = function(quotations) {
-    for (quotation in quotations) {
+show_quotations = function(table, quotations) {
+    for (i = 0; i < quotations.length; i++) {
         // create table row
-        alert(quotations[0].cotacaoCompra)
+        var row = document.createElement("tr")
+        var date_td = document.createElement("td")
+        var buy_td = document.createElement("td")
+        var sell_td = document.createElement("td")
+        row.appendChild(date_td)
+        row.appendChild(buy_td)
+        row.appendChild(sell_td)
+
+        // put data in row
+        date_td.innerHTML = quotations[i].dataHoraCotacao
+        buy_td.innerHTML = quotations[i].cotacaoCompra
+        sell_td.innerHTML = quotations[i].cotacaoVenda
+        table.appendChild(row)
     }
 }
 
@@ -34,7 +46,7 @@ update_html = function (url) {
     // delete old table rows (if any)
     table = document.getElementById("dataRows")
     while(table.firstChild) {
-        removeChild(table.firstChild);
+        table.firstChild.remove()
     }
 
     // get json file
@@ -45,7 +57,7 @@ update_html = function (url) {
     // draw new html
     request.onload = function() {
         var result = request.response;
-        show_quotations(result.value);
+        show_quotations(table, result.value);
     }
 
     request.send();
