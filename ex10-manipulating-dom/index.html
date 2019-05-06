@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+  <link rel="stylesheet" href="styles.css">
+ </head>
+  <body>
+    <h1> Cotação do Dólar </h1>
+    <form>
+      Data:<br>
+      <input type="date" name="day" id="day"> <br> <br>
+
+      <input type="button" onClick="get_quotation()"value="Pesquisar">
+
+    </form>
+
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th scope="col">Data/hora</th>
+          <th scope="col">Venda</th>
+          <th scope="col">Compra</th>
+        </tr>
+      </thead>
+      <tbody id="dataRows">
+      </tbody>
+    </table>
+
+    <script src="src.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      let today = new Date()
+      let start_day = new Date()
+      start_day.setDate(today.getDate() - 20)
+      document.getElementById('startDate').valueAsDate = start_day;
+      document.getElementById('endDate').valueAsDate = today;
+    </script>
+  </body>
+</html>
