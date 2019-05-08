@@ -18,7 +18,6 @@ format_date = function(date_obj) {
     year = date_obj.getFullYear()
 
     if (year != "2018"){
-	alert("Date must be in 2018!")
 	return ERROR
     }
 
@@ -28,38 +27,42 @@ format_date = function(date_obj) {
 
 format_url = function(date) {
     str_date = format_date(date)
-    url = START_URL + str_date + END_URL
+    if (str_date == ERROR) {
+	return ERROR
+    }
 
-    return url
+    return START_URL + str_date + END_URL
 }
 
 
 show_quotations = function(table, quotations) {
-    for (i = 0; i < quotations.length; i++) {
-        // create table row
-        var row = document.createElement("tr")
-        var date_td = document.createElement("td")
-        var buy_td = document.createElement("td")
-        var sell_td = document.createElement("td")
-        row.appendChild(date_td)
-        row.appendChild(buy_td)
-        row.appendChild(sell_td)
+    var row = document.createElement("tr")
+    var date_td = document.createElement("td")
+    var buy_td = document.createElement("td")
+    var sell_td = document.createElement("td")
+    var delete_btn = document.createElement('button');
 
-        // put data in row
-        date_td.innerHTML = quotations[i].dataHoraCotacao
-        buy_td.innerHTML = quotations[i].cotacaoCompra
-        sell_td.innerHTML = quotations[i].cotacaoVenda
-        table.appendChild(row)
+    row.appendChild(date_td)
+    row.appendChild(buy_td)
+    row.appendChild(sell_td)
+    row.appendChild(delete_btn)
+
+    // put data in row
+    date_td.innerHTML = quotations[0].dataHoraCotacao
+    buy_td.innerHTML = quotations[0].cotacaoCompra
+    sell_td.innerHTML = quotations[0].cotacaoVenda
+    delete_btn.textContent = 'Delete'
+
+    table.appendChild(row)
+
+    delete_btn.onclick = function(e) {
+	table.removeChild(row);
     }
 }
 
 
 update_html = function (url) {
-    // delete old table rows (if any)
-    table = document.getElementById("dataRows")
-    while(table.firstChild) {
-        table.firstChild.remove()
-    }
+    var table = document.querySelector('table')
 
     // get json file
     var request = new XMLHttpRequest();
@@ -78,13 +81,14 @@ update_html = function (url) {
 
 
 get_quotation = function() {
-    let one_day = 24*60*60*1000; // hours*minutes*seconds*milliseconds
     let date = document.getElementById("day").value
     date = new Date(date)
 
     url = format_url(date)
     if (url != ERROR){
 	update_html(url)
+    } else {
+	alert("Ano da data precisa ser em 2018!")
     }
 }
 
