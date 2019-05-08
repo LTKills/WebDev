@@ -30,7 +30,8 @@
     <script type="text/javascript">
       let today = new Date()
       let start_day = new Date()
-      start_day.setDate(today.getDate() - 20)
+      start_day.setDate(today.getDate())
+      start_day.setFullYear(2018)
       document.getElementById('day').valueAsDate = start_day;
     </script>
   </body>
