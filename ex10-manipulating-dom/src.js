@@ -1,3 +1,10 @@
+// Definitions
+var ERROR = "ERROR"
+var START_URL = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='" 
+var END_URL = "'&$top=100&$format=json"
+
+
+
 // Formats a Date object into the format needed for the API
 format_date = function(date_obj) {
 
@@ -9,15 +16,20 @@ format_date = function(date_obj) {
     if(day < 10) day = "0" + day
 
     year = date_obj.getFullYear()
+
+    if (year != "2018"){
+	alert("Date must be in 2018!")
+	return ERROR
+    }
+
     return month + "-" + day + "-" + year
 }
 
 
-format_url = function(date_start, date_end) {
-    str_date_start = format_date(date_start)
-    str_date_end = format_date(date_end)
+format_url = function(date) {
+    str_date = format_date(date)
+    url = START_URL + str_date + END_URL
 
-    url = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='" + str_date_start + "'&@dataFinalCotacao='" + str_date_end + "'&$top=100&$format=json&$select=cotacaoCompra,cotacaoVenda,dataHoraCotacao"
     return url
 }
 
@@ -67,14 +79,13 @@ update_html = function (url) {
 
 get_quotation = function() {
     let one_day = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-    let start_date = document.getElementById("day").value
-    let end_date = document.getElementById("day").value
+    let date = document.getElementById("day").value
+    date = new Date(date)
 
-    start_date = new Date(start_date)
-    end_date = new Date(end_date)
-
-    url = format_url(start_date, end_date)
-    update_html(url)
+    url = format_url(date)
+    if (url != ERROR){
+	update_html(url)
+    }
 }
 
 
