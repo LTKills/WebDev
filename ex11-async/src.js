@@ -36,6 +36,9 @@ function draw(timestamp) {
 }
 
 
+
+
+
 // Initially hide the spinner and results
 result.style.display = 'none';
 spinnerContainer.style.display = 'none';
