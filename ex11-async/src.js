@@ -6,18 +6,21 @@ let rotateCount = 0;
 let startTime = null;
 let rAF;
 
+
 // Store references to the start button and the result paragraph
 const btn = document.querySelector('button');
 const result = document.querySelector('.result');
 
-// function to generate random number
+
 function random(min,max) {
+    // function to generate random number
     var num = Math.floor(Math.random()*(max-min)) + min;
     return num;
 }
 
-// Create a draw() function
+
 function draw(timestamp) {
+    // Create a draw() function
     if(!startTime) {
 	startTime = timestamp;
     }
@@ -27,7 +30,7 @@ function draw(timestamp) {
     // Set the rotation of the div to be equal to rotateCount degrees
     spinner.style.transform = 'rotate(' + rotateCount + 'deg)';
 
-    // If rotateCount gets to 360, set it back to 0, set it back to 0
+    // If rotateCount gets to 360, set it back to 0
     if(rotateCount > 359) {
 	rotateCount -= 360;
     }
@@ -37,23 +40,22 @@ function draw(timestamp) {
 
 
 
-
-
 // Initially hide the spinner and results
 result.style.display = 'none';
 spinnerContainer.style.display = 'none';
 
 
-// Reset the game to its initial state on restart
 function reset() {
+    // Reset the game to its initial state on restart
     btn.style.display = 'block';
     result.textContent = '';
     result.style.display = 'none';
     }
 
-// Start the game when the button is pressed
 
+// Start the game when the button is pressed
 btn.addEventListener('click', start);
+
 
 function start() {
     // Start the spinner spinning
@@ -65,8 +67,9 @@ function start() {
     setTimeout(setEndgame, random(5000,10000));
 }
 
-// Function to allow players to take their turn when the time is right
+
 function setEndgame() {
+    // Function to allow players to take their turn when the time is right
     cancelAnimationFrame(rAF);
     spinnerContainer.style.display = 'none';
     result.style.display = 'block';
