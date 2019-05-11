@@ -72,12 +72,12 @@
   button {
     border: 0;
     padding: 12.75px 20px;
-    background-color: #ddd;
+    background-color: black;
     cursor: pointer;
   }
 
   button:hover, button:focus {
-    background-color: #eee;
+    background-color: black;
   }
 
   button:active {
