@@ -14,14 +14,27 @@
         <p class="p1">Player 1: "A"</p>
         <p class="p2">Player 2: "L"</p>
         <div class="middlebar">
-          <button>Start game</button>
+          <button id="mainButton">Start game</button>
           <p class="result"></p>
         </div>
       </div>
 
-      <img id="blueCar" src="images/car-blue.png" style="margin-left:170px;" /> 
+      <img id="yellowCar" src="images/car-yellow.png"  style="width: 50px; height: 50px; 
+							      top: 250px; 
+      							      left: 10px; position: absolute;" />
 
-      <img id="yellowCar" src="images/car-yellow.png"  style="width: 50px; height: 50px; left: 0px;" />
+      <img id="blueCar" src="images/car-blue.png"  style="width: 50px; height: 50px; 
+      							top: 350px;
+      							left: 10px; 
+							position: absolute;" />
+
+    <h1 id="gameOver" align="center" style="color: #eee;">
+    </h1>
+
+    <h2 id="winner" align="center" style="color: #eee;">
+    </h2>
+
+ 
 
     </section>
     <script src="src.js" type="text/javascript"></script>

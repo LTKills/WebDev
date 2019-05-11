@@ -5,8 +5,8 @@ const spinnerContainer = document.querySelector('.spinner');
 let rotateCount = 0;
 let startTime = null;
 let rAF;
-
 var TESTING = false
+var END_GAME = false
 
 
 // Store references to the start button and the result paragraph
@@ -21,18 +21,23 @@ function random(min,max) {
 }
 
 
-function moveRight(id) {
+function moveRight(id, player_name) {
     var pp = document.getElementById(id);
-    var right = parseInt(pp.style.left) || 0;
+    var right = parseInt(pp.style.left);
 
-    right += 100 // speed;  // move
+    if (TESTING) {
+	right += Math.round(window.innerWidth)
+    } else {
+	right += Math.round(window.innerWidth / 10)
+    }
     pp.style.left = right + "px";
-    alert("Hi")
 
-    //var move = setTimeout(function() {
-    //	moveRight(id);
-    //}, 50);
-
+    if (right >= window.innerWidth) {
+    	document.getElementById("winner").innerHTML = "Congratulations " + player_name
+    	document.getElementById("gameOver").innerHTML = "Good game!"
+    	document.getElementById("mainButton").innerHTML = "Play again"
+	END_GAME = true
+    }
 }
 
 
@@ -76,16 +81,22 @@ btn.addEventListener('click', start);
 
 function start() {
     // Start the spinner spinning
+    if (END_GAME) {
+    	document.getElementById("winner").innerHTML = ""
+    	document.getElementById("gameOver").innerHTML = ""
+    	document.getElementById("mainButton").innerHTML = "Start Game"
+	document.getElementById("blueCar").style.left = 0 + "px";
+	document.getElementById("yellowCar").style.left = 0 + "px";
+	END_GAME = false
+    }
+
     draw();
     // Show the spinner and hide the button
     spinnerContainer.style.display = 'block';
     btn.style.display = 'none';
-    // run the setEndgame() function after a random number of seconds between 5 and 10
-    if (TESTING) {
-        setTimeout(setEndgame, random(5000,10000));
-    } else {
-        setTimeout(setEndgame, random(1000,2000));
-    }
+
+    // run the setEndgame() function after a random number of seconds between 1 and 2
+    setTimeout(setEndgame, random(1000,2000));
 }
 
 
@@ -101,13 +112,15 @@ function setEndgame() {
     function keyHandler(e) {
 	console.log(e.key);
 	if(e.key === "a") {
-	    result.textContent = 'Player 1 won!!';
-	    moveRight('yellowCar');
+	    result.textContent = 'Player 1 won this round';
+	    moveRight('yellowCar', 'Player 1');
 	} else if(e.key === "l") {
-	    result.textContent = 'Player 2 won!!';
+	    result.textContent = 'Player 2 won this round!!';
+	    moveRight('blueCar', 'Player 2');
 	}
 
 	document.removeEventListener('keydown', keyHandler);
-	setTimeout(reset, 5000);
+	setTimeout(reset, 500);
     };
 }
+
