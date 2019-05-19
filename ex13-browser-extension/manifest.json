@@ -1,0 +1,6 @@
+{
+    "name": "Word seeker",
+    "version": "1.0",
+    "description": "Seeks for words using google search",
+    "manifest_version": 2
+}
