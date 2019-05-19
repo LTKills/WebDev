@@ -1,11 +1,10 @@
 chrome.runtime.onInstalled.addListener(function() {
-    build_wordList = function() {
-        let fs = require("fs");
-        let text = fs.readFileSync("./wordList.txt");
-        return text.split("\n");
+    load_wordList = function() {
+        var rawdata = JSON.parse("./wordList.json");
+        return rawdata[0];
     }
 
-    chrome.storage.sync.set({"wordList": build_wordList()}, function() {
+    chrome.storage.sync.set({load_wordList()}, function() {
         console.log('Storing words');
     });
 });
